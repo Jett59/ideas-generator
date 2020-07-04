@@ -17,7 +17,7 @@ String *wordsIn(FileInfo *);
 
 int main()
 {
-    FileInfo *categories = openFile("categories.txt");
+    FileInfo *categories = openFile("nounlist.txt");
     FileInfo *purposes = openFile("purpose.txt");
     printf("%s\n", purposes->chars);
     printf("%s\n\n", categories->chars);
@@ -49,10 +49,10 @@ FileInfo *openFile(const char *name)
     fseek(file, 0, SEEK_END);
     long size = ftell(file);
     rewind(file);
-    
+
     FileInfo *fileInfo = malloc(1 * sizeof(FileInfo));
     if (fileInfo == 0)
-    {
+{
         fprintf(stderr, "unable to allocate new filepointer for file %s\n", name);
         exit(-2);
     }
