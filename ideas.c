@@ -3,22 +3,22 @@
 #include <time.h>
 
 typedef char *String;
-typedef struct fileinfo
+typedef struct FileInfo
 {
     const char *name;
     unsigned int size;
     void *ankor;
     char *chars;
     void *end;
-} fileinfo;
+} FileInfo;
 
-fileinfo *openFile(const char *);
-String *wordsIn(fileinfo *);
+FileInfo *openFile(const char *);
+String *wordsIn(FileInfo *);
 
 int main()
 {
-    fileinfo *categories = openFile("categories.txt");
-    fileinfo *purposes = openFile("purpose.txt");
+    FileInfo *categories = openFile("categories.txt");
+    FileInfo *purposes = openFile("purpose.txt");
     printf("%s\n", purposes->chars);
     printf("%s\n\n", categories->chars);
     String *wordsInCategories = wordsIn(categories);
@@ -37,7 +37,7 @@ int main()
     free(purposes);
 }
 
-fileinfo *openFile(const char *name)
+FileInfo *openFile(const char *name)
 {
     FILE *file = fopen(name, "r");
     if (file == 0)
@@ -51,14 +51,14 @@ fileinfo *openFile(const char *name)
         size++;
     }
     rewind(file);
-    fileinfo *fp = malloc(1 * sizeof(fileinfo));
-    if (fp == 0)
+    FileInfo *fileInfo = malloc(1 * sizeof(FileInfo));
+    if (fileInfo == 0)
     {
         fprintf(stderr, "unable to allocate new filepointer for file %s\n", name);
         exit(-2);
     }
-    fp->name = name;
-    fp->size = size;
+    fileInfo->name = name;
+    fileInfo->size = size;
     char *chars = malloc((size + 1) * sizeof(char));
     if (chars == 0)
     {
@@ -72,45 +72,45 @@ fileinfo *openFile(const char *name)
     }
     fclose(file);
     *chars = '\0';
-    fp->end = (void *)chars;
+    fileInfo->end = (void *)chars;
     chars = (char *)ankor;
-    fp->ankor = ankor;
-    fp->chars = chars;
-    return fp;
+    fileInfo->ankor = ankor;
+    fileInfo->chars = chars;
+    return fileInfo;
 }
 
-String *wordsIn(fileinfo *fp)
+String *wordsIn(FileInfo *fileInfo)
 {
     unsigned int wordCount = 0;
-    for (unsigned int i = 0; i < fp->size; i++)
+    for (unsigned int i = 0; i < fileInfo->size; i++)
     {
-        if (*(fp->chars) == '\n')
+        if (*(fileInfo->chars) == '\n')
         {
             wordCount++;
         }
-        fp->chars++;
+        fileInfo->chars++;
     }
-    fp->chars = (char *)(fp->ankor);
+    fileInfo->chars = (char *)(fileInfo->ankor);
     String *words = malloc((wordCount + 2) * sizeof(String));
     if (words == 0)
     {
-        fprintf(stderr, "error while allocating required memory for storing %d words from file %s\n", fp->size, fp->name);
+        fprintf(stderr, "error while allocating required memory for storing %d words from file %s\n", fileInfo->size, fileInfo->name);
         exit(-2);
     }
     void *wordsAnkor = (void *)words;
-    *words = fp->chars;
+    *words = fileInfo->chars;
     words++;
     for (unsigned int i = 0; i < wordCount; i++)
     {
-        while (*(fp->chars++) != '\n')
+        while (*(fileInfo->chars++) != '\n')
         {
             continue;
         }
-        *(fp->chars - 1) = '\0';
-        *words = fp->chars;
+        *(fileInfo->chars - 1) = '\0';
+        *words = fileInfo->chars;
         words++;
     }
-    fp->chars = (char *)(fp->ankor);
+    fileInfo->chars = (char *)(fileInfo->ankor);
     *words = 0;
     words = (String *)wordsAnkor;
     return words;
