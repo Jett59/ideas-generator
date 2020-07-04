@@ -3,7 +3,7 @@
 #include <time.h>
 
 typedef char *String;
-typedef struct filepointer
+typedef struct fileinfo
 {
     const char *name;
     unsigned int size;
