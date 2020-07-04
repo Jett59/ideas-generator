@@ -25,6 +25,7 @@ int main()
 {
     FileInfo *categories = openFile("categories.txt");
     FileInfo *purposes = openFile("nounlist.txt");
+    FileInfo* adjectives = openFile("28K adjectives.txt");
     
     WordsInfo *wordsInCategories = wordsIn(categories);
     void *wordsInCategoriesAnkor = (void *)wordsInCategories->words;
@@ -32,7 +33,13 @@ int main()
     WordsInfo *wordsInPurposes = wordsIn(purposes);
     void* wordsInPurposesAnkor = (void*)wordsInPurposes->words;
 
+WordsInfo *wordsInAdjectives = wordsIn(adjectives);
+    void* wordsInAdjectivesAnkor = (void*)wordsInAdjectives->words;
+
 srand(time(0));
+
+String* randomAdjective = wordsInAdjectives->words+rand()%wordsInAdjectives->wordCount;
+printf("adjective: %s\n", *randomAdjective);
 
 String* randomPurpose = wordsInPurposes->words+rand()%wordsInPurposes->wordCount;
 printf("purpose: %s\n", *randomPurpose);
