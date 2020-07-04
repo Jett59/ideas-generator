@@ -28,11 +28,10 @@ int main()
     
     WordsInfo *wordsInCategories = wordsIn(categories);
     void *wordsInCategoriesAnkor = (void *)wordsInCategories->words;
-
-    printf("\n\n");
     printf("Categories count: %d\n", wordsInCategories->wordCount);
 
     WordsInfo *wordsInPurposes = wordsIn(purposes);
+    void* wordsInPurposesAnkor = (void*)wordsInPurposes->words;
     printf("Purpose count: %d\n", wordsInPurposes->wordCount);
 
     free(wordsInPurposes->words);
