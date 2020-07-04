@@ -28,11 +28,17 @@ int main()
     
     WordsInfo *wordsInCategories = wordsIn(categories);
     void *wordsInCategoriesAnkor = (void *)wordsInCategories->words;
-    printf("Categories count: %d\n", wordsInCategories->wordCount);
 
     WordsInfo *wordsInPurposes = wordsIn(purposes);
     void* wordsInPurposesAnkor = (void*)wordsInPurposes->words;
-    printf("Purpose count: %d\n", wordsInPurposes->wordCount);
+
+srand(time(0));
+
+String* randomPurpose = wordsInPurposes->words+rand()%wordsInPurposes->wordCount;
+printf("purpose: %s\n", *randomPurpose);
+
+String* randomCategory = wordsInCategories->words+rand()%wordsInCategories->wordCount;
+printf("category: %s\n", *randomCategory);
 
     free(wordsInPurposes->words);
     free(wordsInPurposes);
