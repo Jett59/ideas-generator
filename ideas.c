@@ -47,6 +47,9 @@ printf("purpose: %s\n", *randomPurpose);
 String* randomCategory = wordsInCategories->words+rand()%wordsInCategories->wordCount;
 printf("category: %s\n", *randomCategory);
 
+free(wordsInAdjectives->words);
+free(wordsInAdjectives);
+
     free(wordsInPurposes->words);
     free(wordsInPurposes);
     
@@ -58,6 +61,9 @@ printf("category: %s\n", *randomCategory);
     
     free(purposes->chars);
     free(purposes);
+
+    free(adjectives->chars);
+    free(adjectives);
 }
 
 FileInfo *openFile(const char *name)
