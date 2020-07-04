@@ -21,7 +21,6 @@ int main()
     filepointer *purposes = openFile("purpose.txt");
     printf("%s\n", purposes->chars);
     printf("%s\n\n", categories->chars);
-    printf("%s\n\n", categories->chars);
     String *wordsInCategories = wordsIn(categories);
     void *wordsInCategoriesAnkor = (void *)wordsInCategories;
     while (*wordsInCategories != 0)
