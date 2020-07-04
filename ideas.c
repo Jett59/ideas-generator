@@ -47,6 +47,14 @@ printf("purpose: %s\n", *randomPurpose);
 String* randomCategory = wordsInCategories->words+rand()%wordsInCategories->wordCount;
 printf("category: %s\n", *randomCategory);
 
+fflush(stdout);
+
+char* input = malloc(100*sizeof(char));
+gets(input);
+if(input == ""){
+    printf("done\n");
+}
+
 free(wordsInAdjectives->words);
 free(wordsInAdjectives);
 
