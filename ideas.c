@@ -70,6 +70,7 @@ filepointer *openFile(const char *name)
     {
         chars++;
     }
+    fclose(file);
     *chars = '\0';
     fp->end = (void *)chars;
     chars = (char *)ankor;
