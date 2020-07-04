@@ -45,12 +45,11 @@ FileInfo *openFile(const char *name)
         fprintf(stderr, "error while openning file %s\n", name);
         exit(-1);
     }
-    unsigned int size = 0;
-    while (getc(file) != -1)
-    {
-        size++;
-    }
+    
+    fseek(file, 0, SEEK_END);
+    long size = ftell(file);
     rewind(file);
+    
     FileInfo *fileInfo = malloc(1 * sizeof(FileInfo));
     if (fileInfo == 0)
     {
