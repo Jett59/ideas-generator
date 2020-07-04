@@ -70,7 +70,7 @@ FileInfo *openFile(const char *name)
     FileInfo *fileInfo = malloc(1 * sizeof(FileInfo));
     if (fileInfo == 0)
 {
-        fprintf(stderr, "unable to allocate new filepointer for file %s\n", name);
+        fprintf(stderr, "unable to allocate new FileInfo for file %s\n", name);
         exit(-2);
     }
     fileInfo->name = name;
