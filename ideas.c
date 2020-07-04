@@ -29,12 +29,7 @@ int main()
     printf("%s\n\n", categories->chars);
     WordsInfo *wordsInCategories = wordsIn(categories);
     void *wordsInCategoriesAnkor = (void *)wordsInCategories->words;
-    while (*wordsInCategories->words != 0)
-    {
-        printf("%s ", *wordsInCategories->words);
-        wordsInCategories->words++;
-    }
-    wordsInCategories->words = (String *)wordsInCategoriesAnkor;
+    
     printf("\n\n");
     printf("Categories count: %d\n", wordsInCategories->wordCount);
 
