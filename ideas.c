@@ -12,27 +12,44 @@ typedef struct FileInfo
     void *end;
 } FileInfo;
 
+typedef struct WordsInfo
+{
+    int wordCount;
+    String *words;
+} WordsInfo;
+
 FileInfo *openFile(const char *);
-String *wordsIn(FileInfo *);
+WordsInfo *wordsIn(FileInfo *);
 
 int main()
 {
-    FileInfo *categories = openFile("nounlist.txt");
-    FileInfo *purposes = openFile("purpose.txt");
+    FileInfo *categories = openFile("categories.txt");
+    FileInfo *purposes = openFile("nounlist.txt");
     printf("%s\n", purposes->chars);
     printf("%s\n\n", categories->chars);
-    String *wordsInCategories = wordsIn(categories);
-    void *wordsInCategoriesAnkor = (void *)wordsInCategories;
-    while (*wordsInCategories != 0)
+    WordsInfo *wordsInCategories = wordsIn(categories);
+    void *wordsInCategoriesAnkor = (void *)wordsInCategories->words;
+    while (*wordsInCategories->words != 0)
     {
-        printf("%s ", *wordsInCategories);
-        wordsInCategories++;
+        printf("%s ", *wordsInCategories->words);
+        wordsInCategories->words++;
     }
-    wordsInCategories = (String *)wordsInCategoriesAnkor;
-    printf("\n");
+    wordsInCategories->words = (String *)wordsInCategoriesAnkor;
+    printf("\n\n");
+    printf("Categories count: %d\n", wordsInCategories->wordCount);
+
+    WordsInfo *wordsInPurposes = wordsIn(purposes);
+    printf("Purpose count: %d\n", wordsInPurposes->wordCount);
+
+    free(wordsInPurposes->words);
+    free(wordsInPurposes);
+    
+    free(wordsInCategories->words);
+    free(wordsInCategories);
+
     free(categories->chars);
     free(categories);
-    free(wordsInCategories);
+    
     free(purposes->chars);
     free(purposes);
 }
@@ -78,7 +95,7 @@ FileInfo *openFile(const char *name)
     return fileInfo;
 }
 
-String *wordsIn(FileInfo *fileInfo)
+WordsInfo *wordsIn(FileInfo *fileInfo)
 {
     unsigned int wordCount = 0;
     for (unsigned int i = 0; i < fileInfo->size; i++)
@@ -112,5 +129,9 @@ String *wordsIn(FileInfo *fileInfo)
     fileInfo->chars = (char *)(fileInfo->ankor);
     *words = 0;
     words = (String *)wordsAnkor;
-    return words;
+
+    WordsInfo *wordsInfo = malloc(sizeof(WordsInfo));
+    wordsInfo->wordCount=wordCount;
+    wordsInfo->words=words;
+    return wordsInfo;
 }
