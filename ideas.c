@@ -25,11 +25,10 @@ int main()
 {
     FileInfo *categories = openFile("categories.txt");
     FileInfo *purposes = openFile("nounlist.txt");
-    printf("%s\n", purposes->chars);
-    printf("%s\n\n", categories->chars);
+    
     WordsInfo *wordsInCategories = wordsIn(categories);
     void *wordsInCategoriesAnkor = (void *)wordsInCategories->words;
-    
+
     printf("\n\n");
     printf("Categories count: %d\n", wordsInCategories->wordCount);
 
