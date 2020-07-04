@@ -10,15 +10,15 @@ typedef struct fileinfo
     void *ankor;
     char *chars;
     void *end;
-} filepointer;
+} fileinfo;
 
-filepointer *openFile(const char *);
-String *wordsIn(filepointer *);
+fileinfo *openFile(const char *);
+String *wordsIn(fileinfo *);
 
 int main()
 {
-    filepointer *categories = openFile("categories.txt");
-    filepointer *purposes = openFile("purpose.txt");
+    fileinfo *categories = openFile("categories.txt");
+    fileinfo *purposes = openFile("purpose.txt");
     printf("%s\n", purposes->chars);
     printf("%s\n\n", categories->chars);
     String *wordsInCategories = wordsIn(categories);
@@ -37,7 +37,7 @@ int main()
     free(purposes);
 }
 
-filepointer *openFile(const char *name)
+fileinfo *openFile(const char *name)
 {
     FILE *file = fopen(name, "r");
     if (file == 0)
@@ -51,7 +51,7 @@ filepointer *openFile(const char *name)
         size++;
     }
     rewind(file);
-    filepointer *fp = malloc(1 * sizeof(filepointer));
+    fileinfo *fp = malloc(1 * sizeof(fileinfo));
     if (fp == 0)
     {
         fprintf(stderr, "unable to allocate new filepointer for file %s\n", name);
@@ -79,7 +79,7 @@ filepointer *openFile(const char *name)
     return fp;
 }
 
-String *wordsIn(filepointer *fp)
+String *wordsIn(fileinfo *fp)
 {
     unsigned int wordCount = 0;
     for (unsigned int i = 0; i < fp->size; i++)
