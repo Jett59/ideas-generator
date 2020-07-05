@@ -51,8 +51,8 @@ fflush(stdout);
 
 char* input = malloc(100*sizeof(char));
 gets(input);
-if(input == ""){
-    printf("done\n");
+if(strcmp(input, "exit\0")){
+    main();
 }
 
 free(wordsInAdjectives->words);
